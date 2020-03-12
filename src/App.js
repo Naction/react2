@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  return(
+    <div className="container text-center">
+      <Clock />
     </div>
-  );
+    
+    )
+}
+
+class Clock extends React.Component{
+  constructor(props){
+    super(props);
+    this.now = new Date();
+
+
+    this.state = {
+     time: `${this.now.getHours()}:${this.now.getMinutes()}:${this.now.getSeconds()}`
+    }
+
+    this.refresh = this.refresh.bind(this);
+  }
+
+  refresh(){
+    this.now = new Date();
+    this.setState((state) =>({
+     time: `${this.now.getHours()}:${this.now.getMinutes()}:${this.now.getSeconds()}`
+    }));
+  }
+  render(){
+    return <p onClick={this.refresh}>{this.state.time}</p>
+  }
+
 }
 
 export default App;
