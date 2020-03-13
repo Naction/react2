@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { createStore } from 'redux'
 
 const App = () => (
   <BrowserRouter>
@@ -12,19 +13,35 @@ const App = () => (
   </BrowserRouter>
 )
 
+const vote = (state=0, action) =>{
+  switch (action.type){
+    case 'ADD':
+      return state + 1
+    default:
+      return state
+  }
+
+}
+
+let store = createStore(vote)
+
 const Home = () =>{
+  store.dispatch({ type:'ADD'})
+  let x = store.getState().toString()
   return(
     <div>
       <h1>Welcome</h1>
-
+      <p>投票数：{x}</p>
       <p><Link to="/about">About</Link></p>
     </div>
   )
   }
 const About = () =>{
+  let x = store.getState().toString();
   return(
     <div>
       <h1>About</h1>
+      <p>投票数：{x}</p>
     </div>
   )
   }
